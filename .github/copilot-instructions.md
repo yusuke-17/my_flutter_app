@@ -66,6 +66,36 @@ MaterialApp(
 - 適切な **contrast ratio** の確保を提案
 - **screen reader** 対応の重要性を説明
 
+## 🤖 Serena MCP連携
+
+### コード探索・編集の優先ルール
+- **Serena MCPツールを最優先** で使用する
+- ファイル全体を読み込む前に、**シンボリック検索ツール** を活用する
+- 以下の操作では必ずSerena MCPを使用：
+  - `mcp_serena_find_symbol` - シンボル（クラス、メソッド等）の検索
+  - `mcp_serena_get_symbols_overview` - ファイルのシンボル概要取得
+  - `mcp_serena_search_for_pattern` - パターンマッチング検索
+  - `mcp_serena_replace_symbol_body` - シンボル本体の置換
+  - `mcp_serena_find_referencing_symbols` - 参照元の検索
+
+### 効率的なコード探索フロー
+1. **プロジェクト構造の把握** - `mcp_serena_list_dir` でディレクトリ構造を確認
+2. **シンボル概要の取得** - `mcp_serena_get_symbols_overview` でファイルの全体像を把握
+3. **ターゲットの特定** - `mcp_serena_find_symbol` で目的のシンボルを検索
+4. **詳細な読み込み** - 必要な部分のみ `include_body=True` で取得
+5. **編集** - シンボリックツールで正確に変更
+
+### メモリ機能の活用
+- プロジェクト固有の知識は **memory機能** に保存
+- `mcp_serena_list_memories` で利用可能なメモリを確認
+- `mcp_serena_read_memory` で関連情報を取得
+- 新しい学習内容は `mcp_serena_write_memory` で記録
+
+### 注意事項
+- ❌ **ファイル全体を安易に読み込まない** - トークン効率を重視
+- ✅ **シンボル単位での操作** を基本とする
+- ✅ **段階的な情報取得** で必要最小限のコンテキストを維持
+
 ## 🔧 開発効率化
 
 ### パッケージ管理
